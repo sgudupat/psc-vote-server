@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="com.psc.vote"/>
+    <mvc:annotation-driven/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
+    <!-- declare datasource bean -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/votedb"/>
+        <property name="username" value="root"/>
+        <property name="password" value="CiscoMysql123!@"/>
+    </bean>
+
+    <!-- Autowire initialization -->
+    <bean id="anchorController" class="com.psc.vote.controller.AnchorController"/>
+    <bean id="campaignController" class="com.psc.vote.controller.CampaignController"/>
+    <bean id="loginController" class="com.psc.vote.controller.LoginController"/>
+    <bean id="registerController" class="com.psc.vote.controller.RegisterController"/>
+    <bean id="searchController" class="com.psc.vote.controller.SearchController"/>
+    <bean id="userController" class="com.psc.vote.controller.UserController"/>
+    <bean id="voteController" class="com.psc.vote.controller.VoteController"/>
+    <bean id="clientController" class="com.psc.vote.controller.ClientController"/>
+
+    <bean id="userService" class="com.psc.vote.user.service.UserService"/>
+    <bean id="clientService" class="com.psc.vote.client.service.ClientService"/>
+    <bean id="userManager" class="com.psc.vote.user.manager.UserManager"/>
+    <bean id="clientManager" class="com.psc.vote.client.manager.ClientManager"/>
+    <bean id="userDao" class="com.psc.vote.user.dao.UserDao"/>
+    <bean id="clientDao" class="com.psc.vote.client.dao.ClientDao"/>
+    <bean id="clientRegretDao" class="com.psc.vote.client.dao.ClientRegretDao"/>
+    <bean id="userRewardsDao" class="com.psc.vote.user.dao.UserRewardsDao"/>
+    <bean id="rewardsDao" class="com.psc.vote.vote.dao.RewardDao"/>
+
+    <bean id="voteService" class="com.psc.vote.vote.service.VoteService"/>
+    <bean id="voteManager" class="com.psc.vote.vote.manager.VoteManager"/>
+    <bean id="anchorDao" class="com.psc.vote.vote.dao.AnchorDao"/>
+    <bean id="campaignDao" class="com.psc.vote.vote.dao.CampaignDao"/>
+    <bean id="campaignOptionsDao" class="com.psc.vote.vote.dao.CampaignOptionsDao"/>
+    <bean id="votesDao" class="com.psc.vote.vote.dao.VotesDao"/>
+</beans>
